@@ -16,7 +16,7 @@ module.exports = opts => {
         res.end(''
           + '<meta http-equiv="refresh" content="1;" />'
           + '<img src="' + canvas.toDataURL() + '" />');
-      }).listen(opts.ports);
+      }).listen(opts.port);
       console.log(`Server started on port ${opts.port}`);
     })
 };
