@@ -2,7 +2,7 @@
   "name": "node-nes",
   "version": "0.1.1",
   "description": "A Node.js NES emulator.",
-  "main": "source/nes.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:Glavin001/node-nes.git"
