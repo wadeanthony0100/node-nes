@@ -1,26 +1,15 @@
-var fs = require('fs');
-var http = require('http');
-
-var JSNES = require('./source/nes.js')({});
-//console.log('jsnes', JSNES);
-
-var self = JSNES.ui;
+const fs = require('fs-promise');
+const http = require('http');
+const JSNES = require('./source/nes.js')({});
+const self = JSNES.ui;
 
 self.updateStatus("Downloading...");
-fs.readFile('roms/lj65/lj65.nes', {encoding: 'binary'}, function(err, data) {
-    //console.log(err, data);
-    if (err) { return err; }
-    
-    self.nes.loadRom(data);
-    console.log('Start');
+fs.readFile('roms/lj65/lj65.nes', {encoding: 'binary'})
+  .then(rom => {
+    self.nes.loadRom(rom);
     self.nes.start();
-    console.log('Enable', self.nes.isRunning);
     self.enable();
-    console.log('Done!');
-    var canvas = self.nes.ui.screen[0];
-    //console.log(self.nes.ui.canvasImageData);
-    console.log(self.nes.frameTime);
-
+    const canvas = self.nes.ui.screen[0];
     http.createServer(function (req, res) {
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.end(''
@@ -28,5 +17,5 @@ fs.readFile('roms/lj65/lj65.nes', {encoding: 'binary'}, function(err, data) {
             + '<img src="' + canvas.toDataURL() + '" />');
     }).listen(3000);
     console.log('Server started on port 3000');
-
-});
+  })
+  .catch(reason => console.error(reason));

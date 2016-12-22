@@ -37,7 +37,7 @@ module.exports = function(JSNES) {
             console.log('enable');
         };
         self.updateStatus = function(status) {
-            console.log('status', status);
+            console.log('statits', status);
         };
         self.writeAudio = function(samples) {
             console.log('writeAudio');
